@@ -20,7 +20,7 @@ router.post("/register" , async (req,res)=>{
         const encPass = await bcrypt.hash(password , 10);
         user.password = encPass;
         await user.save();
-        res.redirect(303 , "/user");
+        res.redirect(303 , "/");
     }
     else{
         let data = {msg :"user with this username or email already exist!"}

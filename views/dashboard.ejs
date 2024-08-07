@@ -60,7 +60,7 @@
       let userRes = confirm("Are You Sure To Delete This Car");
 
       if(userRes){ 
-        let resPonse = await fetch(`http://localhost:5000/admin/delete/${id}`, {
+        let resPonse = await fetch(`<%= URL%>/admin/delete/${id}`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'

@@ -5,6 +5,7 @@ const userRouter = require("./Routes/user");
 const adminRouter = require("./Routes/admin");
 const carRouter = require("./Routes/car");
 const bodyParser = require('body-parser');
+require('dotenv').config();
 
 
 app.set("view engine" , "ejs");

@@ -32,7 +32,7 @@ router.post('/', async (req,res)=>{
 
 router.get("/dashboard" , async (req,res)=>{
     const cars = await carModel.find();
-    res.render("dashboard" , {cars});
+    res.render("dashboard" , {cars , URL:process.env.URL});
 })
 
 router.get("/create" , (req,res)=>{
