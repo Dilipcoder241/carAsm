@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="container bg-zinc-200 min-h-screen px-2 py-2 w-full relative">
+  <h1 class="text-center">All Cars</h1>
+  <h1 class="absolute top-0 right-2">Total No. Of Cars We Have : <%= cars.length%></h1>
+  <a href="/admin/create"
+    class="mb-10 inline-block align-middle select-none font-sans font-bold text-center uppercase transition-all text-xs py-3 px-6 rounded-lg bg-green-700 text-white shadow-md shadow-gray-900/10 hover:shadow-lg hover:shadow-gray-900/20"
+    type="button">
+    Create New Car
+  </a>
+  <div class="carContainer flex gap-10 flex-wrap justify-center">
+
+    <% cars.forEach((car , index)=>{%>
+      <div id="<%= car._id%>"
+        class="relative flex flex-col mt-6 text-gray-700 bg-white shadow-md bg-clip-border rounded-xl w-96">
+        <div
+          class="relative h-56 mx-4 -mt-6 overflow-hidden text-white shadow-lg bg-clip-border rounded-xl bg-blue-gray-500 shadow-blue-gray-500/40">
+          <img src="<%= car.imgsrc%>" alt="car-image" class="object-cover w-full h-full object-center" />
+        </div>
+        <div class="p-6">
+          <h5
+            class="block mb-2 font-sans text-xl antialiased font-semibold leading-snug tracking-normal text-blue-gray-900">
+            <%=car.carName%>
+          </h5>
+          <p class="block font-sans text-base antialiased font-light leading-relaxed text-inherit">
+            Manufactured in : <%= car.manufacturedYear%>
+          </p>
+          <p class="block font-sans text-base antialiased font-light leading-relaxed text-inherit">
+            Only Available in : <%= car.price%>
+          </p>
+        </div>
+
+        <div class="p-6 pt-0">
+          <a class="inline-block select-none font-sans font-bold text-center uppercase transition-all text-xs py-3 px-6 rounded-lg bg-green-700 text-white shadow-md shadow-gray-900/10 hover:shadow-lg hover:shadow-gray-900/20"
+            type="button" href="/admin/update/<%= car._id%>">
+            Update
+          </a>
+          <button
+            class="align-middle select-none font-sans font-bold text-center uppercase transition-all text-xs py-3 px-6 rounded-lg bg-red-700 text-white shadow-md shadow-gray-900/10 hover:shadow-lg hover:shadow-gray-900/20 "
+            type="button" onclick="handleDel('<%= car._id %>')">
+            Delete
+          </button>
+        </div>
+
+      </div>
+      <%})%>
+
+  </div>
+
+  <script>
+    async function handleDel(id) {
+      let userRes = confirm("Are You Sure To Delete This Car");
+
+      if(userRes){ 
+        let resPonse = await fetch(`http://localhost:5000/admin/delete/${id}`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        });
+
+        if(resPonse.ok){
+          window.location.reload();
+        }
+      }
+    }
+  </script>
+</body>
+
+</html>
