@@ -1,6 +1,6 @@
 const express = require("express");
 const app = express();
-const port = 5000;
+const port = process.env.PORT || 5000;
 const userRouter = require("./Routes/user");
 const adminRouter = require("./Routes/admin");
 const carRouter = require("./Routes/car");
